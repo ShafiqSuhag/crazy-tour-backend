@@ -19,16 +19,16 @@ We have a sample task for you.
 
 
 [done] 6. Implement at least one (google, facebook, github,or email/ password) authentication. Once a user is logged in, the user name, logout button should appear on the header which will log out the user once clicked. Displaying user profile pic on the header is optional.
-7. If a user is logged in, he/she will see more options like `My Orders`, `Manage All Orders`, `Add A New Tour Package`, `Logout`. Based on your website idea, you can change the name of these menu items. 
-8. On the my orders page, the logged in user will see only his/her orders. If the user wants, he/she should be able to cancel/delete any order. Ask a confirmation message before deleting or canceling an item. Using browser confirmation dialog is ok. 
+[DONE] 7. If a user is logged in, he/she will see more options like `My Orders`, `Manage All Orders`, `Add A New Tour Package`, `Logout`. Based on your website idea, you can change the name of these menu items. 
+[DONE] 8. On the my orders page, the logged in user will see only his/her orders. If the user wants, he/she should be able to cancel/delete any order. Ask a confirmation message before deleting or canceling an item. Using browser confirmation dialog is ok. 
 
 
 
 [done]  10. No Fake data (data has to be hosted on the database). database could be mongodb atlas or any other noSQL database.
 
 ### Bonus: 
-1. If you click on the `Manage All Orders` page, the logged in user will see the orders placed by every users. If multiple users used this website to place orders, everyone's order will be displayed here. and the admin will be able to delete anyone's order here. Also, make sure to add a confirmation before deleting.
-2. on the `Add A New Service`, the admin will be able to add a brand new service. After adding that service, this service will appear on the home page. The name `Add a new service` could be changed based on your website. On this page, you can put an input field to put an image url. (For simplicity, you can upload the image to imgbb or other image hosting website and then put the url on the input field)
+[DONE] 1. If you click on the `Manage All Orders` page, the logged in user will see the orders placed by every users. If multiple users used this website to place orders, everyone's order will be displayed here. and the admin will be able to delete anyone's order here. Also, make sure to add a confirmation before deleting.
+[DONE] 2. on the `Add A New Service`, the admin will be able to add a brand new service. After adding that service, this service will appear on the home page. The name `Add a new service` could be changed based on your website. On this page, you can put an input field to put an image url. (For simplicity, you can upload the image to imgbb or other image hosting website and then put the url on the input field)
 2. update: At the time of placing an order, every order will have a default status: pending. On the Manage All Orders page, you will be able to update the status of the pending to approved status. This could be a simple button to update the pending status. (don't over think, this is a simple button to update the status field of an order. Use Id to find the order and set the status to approved)
 3. Meaningful `readme.md` file containing your website name, a little description, link to your live site. And at least five bullet points mentioning different features and functionality of your website.
 4. Make the website responsive. Make sure the site looks different on desktop and mobile responsive. Tablet responsive is optional
