@@ -289,8 +289,49 @@ async function run() {
       }
 
     })
+    // ######## 
+    // UPDATE STATUS ORDERS
+    app.get('/update-order-status/:orderid', async (req, res) => {
+      const orderid = req.params.orderid
+      console.log('inside find my-orders', id, typeof id)
+      // res.send(id)
+      // return;
+      const limit = parseInt(req.query.size)
+      const pageNumber = parseInt(req.query.page)
+      console.log("limit - pageNumber", limit, pageNumber)
+      const _id = ObjectId(orderid);
+      // Query for a movie that has title "Annie Hall"
+      const query = { _id: orderid };
+      
+      const options = {
+        skip: pageNumber * limit || 0,
+        limit: limit || 0
+      }
+      const count = await orderCollection.estimatedDocumentCount();
+
+      // const count = await cursor.count();
+      const cursor = orderCollection.find(query, options)
+
+      const orderList = await cursor.toArray()
+      if (pageNumber) {
+
+      }
+      else {
+
+      }
+      res.json({
+        count: count,
+        orderList: orderList,
+
+      })
+    })
+    // UPDATE STATUS ORDERS
+
+
+    // ######## 
     // delete ./
     //**************************************************************************** ORDERS  */
+    
 
 
 

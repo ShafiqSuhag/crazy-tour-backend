@@ -35,7 +35,7 @@ We have a sample task for you.
  [done] 5. Make the website meaningful and consistent in look and feel. Give your website a relevant name. Images and all the content of the website has to be relevant. No `lorem ipsum` please. 
  [done] 6. Clean and organized Code. Organize components and add comments when needed
  [done] 7. Add a loading spinner on the home page, if data is loading a spinner will be displayed.
-8. [done] use .env file to hide db user and password and also use .gitignore file
+[done] 8.  use .env file to hide db user and password and also use .gitignore file
 
 
 ### Optional:
