@@ -7,7 +7,7 @@ We have a sample task for you.
 ### Website Purpose:
 [DONE] 1. Your website has to be related to tourism (tour, travel, vacation, etc.) or delivery service. Some examples are: tour planner, tour booking website, vacation planner, travel agent, ticket booking for tourism related: bus/car/plane/cruise/kayak/etc., picnic spot booking, camp site, theme park (fantasy kingdom, nandon, etc), hotels, resorts, or any vacation related service. Another option could be delivery services like Food delivery, food catering, parcel delivery, courier service, same day delivery service, etc. However, your website can not be a restaurant or an e-commerce site. 
 [ok] 2. Make sure your design and website idea is unique. First, finalize your idea (what type of website you want to build). Then google the site design or visit themeforest. to get your website idea. However, your website can not be related to your previous assignments or any demo project displayed in the course or in our conceptual sessions.
-3. Initially, do not spend too much on thinking the design. Just spend 30minutes to an hour. And then finalize the idea. Start working on the project. If needed put a placeholder image and keep developing the functionalities. Once the functionality is done, come back to add proper images. 
+[DONE] 3. Initially, do not spend too much on thinking the design. Just spend 30minutes to an hour. And then finalize the idea. Start working on the project. If needed put a placeholder image and keep developing the functionalities. Once the functionality is done, come back to add proper images. 
 
 ## Task Detail: 
 [done] 1. Home page will have a header (simple navbar), banner, offerings (services/items/options/plans:  the main items that user will purchase), and footer.
@@ -15,7 +15,7 @@ We have a sample task for you.
 
 [done] 3. The Offerings will have at least 6 items/services. You can put one or more items/services in a row based on your design. Each service should have a relevant name, image, short description and a purchase button (button could say: book now, buy now, order, etc.). 
 # 4. Clicking on the button will take the user to the place order page. This route will be a private/protected route. Please make sure that if the user is not logged in, the private route redirects to the login page. After login, the user will be redirected to the page he/she wanted to go to. Also, make sure, after reloading the page of a private route, the user is not redirected to the login page.
-5. The Place Order page should display detailed information of the item, user has clicked. It will display users name and email address from the login system and user will provide address and necessary information to place the order/booking/purchase. 
+[done]  5. The Place Order page should display detailed information of the item, user has clicked. It will display users name and email address from the login system and user will provide address and necessary information to place the order/booking/purchase. 
 
 
 [done] 6. Implement at least one (google, facebook, github,or email/ password) authentication. Once a user is logged in, the user name, logout button should appear on the header which will log out the user once clicked. Displaying user profile pic on the header is optional.
@@ -24,7 +24,7 @@ We have a sample task for you.
 
 
 
-10. No Fake data (data has to be hosted on the database). database could be mongodb atlas or any other noSQL database.
+[done]  10. No Fake data (data has to be hosted on the database). database could be mongodb atlas or any other noSQL database.
 
 ### Bonus: 
 1. If you click on the `Manage All Orders` page, the logged in user will see the orders placed by every users. If multiple users used this website to place orders, everyone's order will be displayed here. and the admin will be able to delete anyone's order here. Also, make sure to add a confirmation before deleting.
