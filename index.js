@@ -6,6 +6,9 @@ const port = process.env.PORT || 5000
 const { MongoClient } = require('mongodb');
 require('dotenv').config()
 app.use(cors())
+app.use(express.json())
+const { ObjectId } = require('mongodb');
+// const _id = ObjectId("4eb6e7e7e9b7f4194e000001");
 
 
 app.get('/', (req, res) => {
@@ -19,75 +22,151 @@ const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology:
 
 
 
-async function run (){
+async function run() {
 
-  try{
-      // connection
-      await client.connect() 
-      const db =  client.db(process.env.DB_NAME);
-      const tourCollection =  db.collection("tours");
-      console.log("connnection successfull")
-      
-      // index 
+  try {
+    // connection
+    await client.connect()
+    const db = client.db(process.env.DB_NAME);
+    const tourCollection = db.collection("tours");
+    console.log("connnection successfull")
 
-      app.get('/tours', async (req,res) => {
-          
-          const limit = parseInt(req.query.size)
-          const pageNumber = parseInt(req.query.page)
-          console.log("limit - pageNumber", limit, pageNumber)
-          const query = {}
-          const options = { 
-              skip: pageNumber*limit || 0, 
-              limit: limit || 0
-          }
-          const count = await tourCollection.estimatedDocumentCount();
-          
-          // const count = await cursor.count();
-          const cursor = tourCollection.find(query, options)
-          
-          const products = await cursor.toArray()
-          if(pageNumber){
-              
-          }
-          else{
+    // index 
 
-          }
-          res.json({
-              count: count,
-              products: products,
-              
-          })
+
+    app.get('/tours', async (req, res) => {
+
+      const limit = parseInt(req.query.size)
+      const pageNumber = parseInt(req.query.page)
+      console.log("limit - pageNumber", limit, pageNumber)
+      const query = {}
+      const options = {
+        skip: pageNumber * limit || 0,
+        limit: limit || 0
+      }
+      const count = await tourCollection.estimatedDocumentCount();
+
+      // const count = await cursor.count();
+      const cursor = tourCollection.find(query, options)
+
+      const tours = await cursor.toArray()
+      if (pageNumber) {
+
+      }
+      else {
+
+      }
+      res.json({
+        count: count,
+        tours: tours,
+
       })
-      
+    })
 
-      // store 
-      app.get('/tour',async (req,res)=> {
-        const doc = {
-          title: "AMAZON CRUISE",
-          img: "http://cdn-adventure-tours.themedelight.com/wp-content/uploads/2015/07/tropical-rainforest-parrot.jpg",
-          price: 200,
-          location: "Amazon, Brazil", 
-          duration: 7, 
-          rating: 5, 
-          description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusamus, reiciendis? Quis in facilis et iusto libero eum, doloribus, vitae expedita eos, ipsam suscipit quas accusantium repellendus accusamus voluptatibus pariatur blanditiis fugiat velit. Dolores magnam optio quidem saepe maxime iusto temporibus? Ab sit ipsa voluptates autem aperiam temporibus libero earum aspernatur aliquid dolores quidem, provident, non rem commodi eum assumenda voluptatem quia! Distinctio non excepturi ipsa voluptatibus inventore sapiente necessitatibus? Reprehenderit in nemo at! Sint quibusdam nulla et accusantium delectus perferendis repellendus eveniet nihil enim sunt nesciunt, illum repudiandae magni veritatis numquam omnis voluptates impedit possimus, adipisci neque fugit perspiciatis officia aliquam cupiditate? Necessitatibus suscipit sequi eaque labore velit sunt possimus maxime sit recusandae incidunt fugit aliquam, eligendi, commodi nihil itaque corrupti minus hic. Quo ullam nulla non minus nisi laborum quod eius, at a tempore nesciunt accusantium animi officia tenetur magnam dolores temporibus! Officiis, nobis animi hic fuga adipisci repellendus eum ex suscipit quam porro cupiditate, magni eos dolorem ab debitis sit doloribus sequi at quisquam accusantium ut illo. Ab consectetur, ducimus adipisci doloribus sed laborum. Voluptatibus at illum expedita culpa eligendi molestias, excepturi labore voluptatem corporis, dolorem dignissimos! Unde, ipsa tempore labore delectus beatae minus ullam magni mollitia quibusdam!"
-        }
+
+    // store 
+    app.post('/tour', async (req, res) => {
+      console.log('inside post req ')
+      console.log(req.body, typeof req.body)
+      const doc = req.body || {}
+      // res.send()
+      // return     
+      if (doc) {
         const result = await tourCollection.insertOne(doc);
         console.log(`A document was inserted with the _id: ${result.insertedId}`);
-        res.send(result.insertedId)
+        res.send({
+          success: true,
+          msg: `A document was inserted with the _id: ${result.insertedId}`
+        })
+      } else {
+        res.send(
+          {
+            success: false,
+            msg: `Failed to post`
+          }
+        )
+      }
 
-      })
-      // find
-      app.get("/product/:id", async (req,res) => {
-          const id = req.params.id
-          res.send(id)
-      })
-      
+
+    })
+    // find servier 
+    app.post('/tour-details', async (req, res) => {
+      console.log('inside tour-details req ')
+      console.log(req.body, typeof req.body)
+      const doc = req.body || {}
+      // res.send()
+      // return     
+      if (doc) {
+        // const result = await tourCollection.insertOne(doc);
+        // console.log(`A document was inserted with the _id: ${result.insertedId}`);
+        const query = {_id: ObjectId(doc.id) }
+        const options= {}
+        const cursor = tourCollection.find(query, options);
+        const tourDetails = await cursor.toArray()
+        res.send({
+          success: true,
+          msg: `Result Foound`, 
+          data: tourDetails
+        })
+      } else {
+        res.send(
+          {
+            success: false,
+            msg: `No serach value found`, 
+            data : []
+          }
+        )
+      }
+
+
+    })
+    // find
+    app.get("/product/:id", async (req, res) => {
+      const id = req.params.id
+      res.send(id)
+    })
+
+    // delete 
+
+
+    app.delete('/tour', async (req, res) => {
+      console.log('inside delete req ')
+      console.log(req.body, typeof req.body)
+      const doc = req.body || {}
+
+      // res.send(doc)
+      // return   
+      const _id = ObjectId(doc.id);
+      // Query for a movie that has title "Annie Hall"
+      const query = { _id: _id };
+      const result = await tourCollection.deleteOne(query);
+      console.log("check delete ",result)
+      if (result.deletedCount === 1) {
+        console.log("delete success")
+        res.send({
+          success: true,
+          msg: "Successfully deleted one document.",
+          id: doc.id
+        })
+
+       
+      } else {
+        res.send({
+          success: false,
+          msg: "Failed to delete",
+          id: doc.id
+        })
+      }
+
+    })
+    // delete ./
+
 
   }
-  finally{
-      console.log("connection alive")
-      // client.close()
-      // console.log("Connection closed ")
+  finally {
+    console.log("connection alive")
+    // client.close()
+    // console.log("Connection closed ")
   }
 
 }
