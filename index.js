@@ -97,21 +97,21 @@ async function run() {
       if (doc) {
         // const result = await tourCollection.insertOne(doc);
         // console.log(`A document was inserted with the _id: ${result.insertedId}`);
-        const query = {_id: ObjectId(doc.id) }
-        const options= {}
+        const query = { _id: ObjectId(doc.id) }
+        const options = {}
         const cursor = tourCollection.find(query, options);
         const tourDetails = await cursor.toArray()
         res.send({
           success: true,
-          msg: `Result Foound`, 
+          msg: `Result Foound`,
           data: tourDetails
         })
       } else {
         res.send(
           {
             success: false,
-            msg: `No serach value found`, 
-            data : []
+            msg: `No serach value found`,
+            data: []
           }
         )
       }
@@ -138,7 +138,7 @@ async function run() {
       // Query for a movie that has title "Annie Hall"
       const query = { _id: _id };
       const result = await tourCollection.deleteOne(query);
-      console.log("check delete ",result)
+      console.log("check delete ", result)
       if (result.deletedCount === 1) {
         console.log("delete success")
         res.send({
@@ -147,7 +147,7 @@ async function run() {
           id: doc.id
         })
 
-       
+
       } else {
         res.send({
           success: false,
@@ -201,7 +201,7 @@ async function run() {
       // const _id = ObjectId(id);
       // Query for a movie that has title "Annie Hall"
       const query = { userId: id };
-      
+
       const options = {
         skip: pageNumber * limit || 0,
         limit: limit || 0
@@ -270,7 +270,7 @@ async function run() {
       // Query for a movie that has title "Annie Hall"
       const query = { _id: _id };
       const result = await orderCollection.deleteOne(query);
-      console.log("check delete ",result)
+      console.log("check delete ", result)
       if (result.deletedCount === 1) {
         console.log("delete success")
         res.send({
@@ -279,7 +279,7 @@ async function run() {
           id: doc.id
         })
 
-       
+
       } else {
         res.send({
           success: false,
@@ -293,37 +293,51 @@ async function run() {
     // UPDATE STATUS ORDERS
     app.get('/update-order-status/:orderid', async (req, res) => {
       const orderid = req.params.orderid
-      console.log('inside find my-orders', id, typeof id)
+      console.log('inside find update find -orders', orderid, typeof id)
       // res.send(id)
       // return;
       const limit = parseInt(req.query.size)
       const pageNumber = parseInt(req.query.page)
       console.log("limit - pageNumber", limit, pageNumber)
-      const _id = ObjectId(orderid);
+      const orderObjectId = ObjectId(orderid);
+      console.log('object ', orderObjectId)
       // Query for a movie that has title "Annie Hall"
-      const query = { _id: orderid };
-      
-      const options = {
-        skip: pageNumber * limit || 0,
-        limit: limit || 0
-      }
+      const query = { _id: orderObjectId };
+
+      // const options = {
+      //   skip: pageNumber * limit || 0,
+      //   limit: limit || 0
+      // }
       const count = await orderCollection.estimatedDocumentCount();
 
       // const count = await cursor.count();
-      const cursor = orderCollection.find(query, options)
+      const cursor = await orderCollection.findOne(query)
+      const filter = { _id: orderObjectId };
+      const options = { upsert: true };
 
-      const orderList = await cursor.toArray()
-      if (pageNumber) {
+      const updateDoc = {
+        $set: {
+          orderStatus: 'active'
+        },
+      };
+      const result = await orderCollection.updateOne(filter, updateDoc, options);
+      console.log(result)
 
+      // const orderList =result 
+      if (result.modifiedCount > 0) {
+        res.json({
+          success: true
+        
+
+        })
       }
       else {
+        res.json({
+          success: true
 
+        })
       }
-      res.json({
-        count: count,
-        orderList: orderList,
 
-      })
     })
     // UPDATE STATUS ORDERS
 
@@ -331,7 +345,7 @@ async function run() {
     // ######## 
     // delete ./
     //**************************************************************************** ORDERS  */
-    
+
 
 
 
